@@ -23,7 +23,7 @@ resource "aws_cloudwatch_dashboard" "soc_dashboard" {
 
         properties = {
           metrics = [
-            ["AWS/Events", "MatchedEvents", "RuleName", aws_cloudwatch_event_rule.iam_security_events.name]
+            ["AWS/Events", "MatchedEvents", "RuleName", aws_cloudwatch_event_rule.security_events.name]
           ]
           period = 300
           stat   = "Sum"
@@ -52,4 +52,3 @@ resource "aws_cloudwatch_dashboard" "soc_dashboard" {
     ]
   })
 }
-
