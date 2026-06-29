@@ -1,0 +1,11 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.aws/
+.env
+*.pem
+*.zip
+*DS_Store
+*.log
+terraform.tfvars
