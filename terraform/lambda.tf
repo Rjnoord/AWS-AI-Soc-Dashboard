@@ -82,9 +82,9 @@ resource "aws_lambda_function" "soc_incident_processor" {
 
   function_name = "${var.project_name}-incident-processor"
 
-  filename = "lambda/lambda.zip"
+  filename = "../lambda/lambda.zip"
 
-  source_code_hash = filebase64sha256("lambda/lambda.zip")
+  source_code_hash = filebase64sha256("../lambda/lambda.zip")
 
   role = aws_iam_role.soc_lambda_role.arn
 
@@ -118,9 +118,9 @@ resource "aws_iam_role_policy_attachment" "soc_lambda_attachment" {
 resource "aws_lambda_function" "soc_incident_report" {
   function_name = "${var.project_name}-incident-report"
 
-  filename = "lambda/lambda.zip"
+  filename = "../lambda/lambda.zip"
 
-  source_code_hash = filebase64sha256("lambda/lambda.zip")
+  source_code_hash = filebase64sha256("../lambda/lambda.zip")
 
   role = aws_iam_role.soc_lambda_role.arn
 
