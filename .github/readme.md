@@ -471,4 +471,11 @@ This project demonstrates how modern cloud security teams can automate incident 
 
 Rather than relying on manual log review, the platform continuously monitors privileged IAM activity, enriches events with contextual intelligence, generates AI-powered incident summaries, and delivers actionable alerts to security analysts in near real time. By combining Infrastructure as Code, serverless computing, event-driven architecture, and generative AI, the solution showcases practical cloud security engineering skills aligned with enterprise DevSecOps and Security Operations Center (SOC) workflows.
 
-## Love rj noord
+## Youtube Walkthrough 
+https://youtu.be/VcHWAKxa_cI
+
+## Screenshots
+
+<img width="1470" height="956" alt="Screenshot 2026-06-29 at 7 49 36 PM" src="https://github.com/user-attachments/assets/8a05a996-69da-42e3-8255-67044b1607d1" />
+<img width="1470" height="956" alt="Screenshot 2026-06-29 at 7 49 11 PM" src="https://github.com/user-attachments/assets/35338271-98a0-4795-9b7e-ab96db38c108" />
+<img width="1470" height="956" alt="Screenshot 2026-06-29 at 7 48 56 PM" src="https://github.com/user-attachments/assets/a6a12f28-c2f4-4a1d-8540-c01b8f0e1103" />
