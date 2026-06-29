@@ -34,21 +34,19 @@ resource "aws_cloudwatch_event_rule" "security_events" {
 
 
 resource "aws_cloudwatch_event_target" "lambda_target" {
-    rule = aws_cloudwatch_event_rule.security_events.name
-    target_id = "soc-lambda"
+  rule      = aws_cloudwatch_event_rule.security_events.name
+  target_id = "soc-lambda"
 
-    arn = aws_lambda_function.soc_incident_report.arn
-  
+  arn = aws_lambda_function.soc_incident_report.arn
 }
 
 resource "aws_lambda_permission" "allow_eventbridge" {
-    statement_id = "AllowExecutionFromEventBridge"
+  statement_id = "AllowExecutionFromEventBridge"
 
-    action = "lambda:InvokeFunction"
+  action = "lambda:InvokeFunction"
 
-    function_name = aws_lambda_function.soc_incident_report.function_name
-    principal = "events.amazonaws.com"
+  function_name = aws_lambda_function.soc_incident_report.function_name
+  principal     = "events.amazonaws.com"
 
-    source_arn = aws_cloudwatch_event_rule.security_events.arn
-  
+  source_arn = aws_cloudwatch_event_rule.security_events.arn
 }
