@@ -470,3 +470,5 @@ Potential enhancements include:
 This project demonstrates how modern cloud security teams can automate incident detection and response using AWS native services.
 
 Rather than relying on manual log review, the platform continuously monitors privileged IAM activity, enriches events with contextual intelligence, generates AI-powered incident summaries, and delivers actionable alerts to security analysts in near real time. By combining Infrastructure as Code, serverless computing, event-driven architecture, and generative AI, the solution showcases practical cloud security engineering skills aligned with enterprise DevSecOps and Security Operations Center (SOC) workflows.
+
+## Love rj noord
