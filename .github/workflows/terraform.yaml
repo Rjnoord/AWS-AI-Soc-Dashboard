@@ -1,25 +1,52 @@
-name: Github actions pipeline
-on:
+name: Terraform
+
+"on":
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/terraform.yaml"
+      - "terraform/**"
+      - "lambda/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   terraform:
+    name: Terraform Checks
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: terraform
+    env:
+      TF_IN_AUTOMATION: "true"
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Package Lambda zip
+        working-directory: lambda
+        run: |
+          rm -f lambda.zip
+          zip -r lambda.zip . -x "lambda.zip" "__pycache__/*" "*.pyc"
+
+      - name: Verify Lambda zip exists
+        working-directory: .
+        run: test -f lambda/lambda.zip
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-      - name: Verify Terraform Formatting
+
+      - name: Verify Terraform formatting
         run: terraform fmt -check -recursive
-      - name: Terraform Init
-        run: terraform init
-      - name: Terraform Validate
+
+      - name: Terraform init
+        run: terraform init -input=false
+
+      - name: Terraform validate
         run: terraform validate
-      - name: Terraform Plan
-        run: terraform plan
+
+      - name: Terraform plan
+        run: terraform plan -input=false -var-file=terraform.tvars
