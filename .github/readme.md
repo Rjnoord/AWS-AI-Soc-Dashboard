@@ -476,6 +476,6 @@ Rather than relying on manual log review, the platform continuously monitors pri
 
 ## Screenshots
 
-![<img width="1470" height="956" alt="Screenshot 2026-06-29 at 7 49 36 PM"] (src="https://github.com/user-attachments/assets/8a05a996-69da-42e3-8255-67044b1607d1" />)
-![<img width="1470" height="956" alt="Screenshot 2026-06-29 at 7 49 11 PM"] (src="https://github.com/user-attachments/assets/35338271-98a0-4795-9b7e-ab96db38c108" />)
-![<img width="1470" height="956" alt="Screenshot 2026-06-29 at 7 48 56 PM"] (src="https://github.com/user-attachments/assets/a6a12f28-c2f4-4a1d-8540-c01b8f0e1103" />)
+ ("https://github.com/user-attachments/assets/8a05a996-69da-42e3-8255-67044b1607d1")
+ ("https://github.com/user-attachments/assets/35338271-98a0-4795-9b7e-ab96db38c108")
+("https://github.com/user-attachments/assets/a6a12f28-c2f4-4a1d-8540-c01b8f0e1103")
