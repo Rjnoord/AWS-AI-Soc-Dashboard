@@ -48,16 +48,5 @@ jobs:
       - name: Terraform validate
         run: terraform validate
 
-      - name: Terraform plan
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          AWS_DEFAULT_REGION: us-east-1
-        run: |
-          if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
-            echo "Skipping terraform plan because AWS credentials are not configured in GitHub Actions secrets."
-            echo "Add AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY to run the plan step."
-          else
-            terraform plan -input=false -var-file=terraform.tvars
-          fi
+      # Planning is intentionally omitted until GitHub OIDC is configured.
+      # Do not store long-lived AWS access keys in repository secrets.
