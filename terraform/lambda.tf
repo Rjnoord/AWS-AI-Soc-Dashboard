@@ -1,3 +1,7 @@
+# Lambda: parses CloudTrail/EventBridge events, scores risk, maps to MITRE ATT&CK,
+# calls Bedrock for an AI summary, and publishes the result to SNS for alerting.
+
+# Trust policy allowing the Lambda service to assume soc_lambda_role.
 data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
     effect = "Allow"
@@ -17,12 +21,15 @@ data "aws_iam_policy_document" "lambda_assume_role" {
 
 }
 
+# Execution role for the incident-report Lambda.
 resource "aws_iam_role" "soc_lambda_role" {
   name = "${var.project_name}-lambda-role"
 
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
 }
 
+# Least-privilege permissions the Lambda needs: write its own logs, publish
+# alerts to SNS, and invoke Bedrock for the AI-generated incident summary.
 resource "aws_iam_policy" "soc_lambda_policy" {
 
   name = "${var.project_name}-lambda-policy"
@@ -78,36 +85,6 @@ resource "aws_iam_policy" "soc_lambda_policy" {
 }
 
 
-resource "aws_lambda_function" "soc_incident_processor" {
-
-  function_name = "${var.project_name}-incident-processor"
-
-  filename = "../lambda/lambda.zip"
-
-  source_code_hash = filebase64sha256("../lambda/lambda.zip")
-
-  role = aws_iam_role.soc_lambda_role.arn
-
-  handler = "app.lambda_handler"
-
-  runtime = "python3.12"
-
-  timeout = 30
-
-  memory_size = 512
-
-  environment {
-
-    variables = {
-
-      SNS_TOPIC_ARN = aws_sns_topic.security_alerts.arn
-
-    }
-
-  }
-
-}
-
 resource "aws_iam_role_policy_attachment" "soc_lambda_attachment" {
   role = aws_iam_role.soc_lambda_role.name
 
@@ -115,6 +92,9 @@ resource "aws_iam_role_policy_attachment" "soc_lambda_attachment" {
 
 }
 
+# The single function EventBridge invokes for every matched security event.
+# It is the pipeline's processing/reporting stage: parse -> score -> MITRE
+# map -> Bedrock summary -> SNS publish.
 resource "aws_lambda_function" "soc_incident_report" {
   function_name = "${var.project_name}-incident-report"
 

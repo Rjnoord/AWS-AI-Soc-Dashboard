@@ -1,9 +1,13 @@
+# Single-pane operational view of the pipeline so an analyst can see, at a
+# glance, how many privileged IAM events fired and whether the processing
+# Lambda is keeping up (or erroring out) without digging through logs.
 resource "aws_cloudwatch_dashboard" "soc_dashboard" {
   dashboard_name = "${var.project_name}-dashboard"
 
   dashboard_body = jsonencode({
     widgets = [
       {
+        # Header/title widget, no metrics.
         type   = "text"
         x      = 0
         y      = 0
@@ -15,6 +19,8 @@ resource "aws_cloudwatch_dashboard" "soc_dashboard" {
         }
       },
       {
+        # Volume of EventBridge matches: how many privileged IAM actions
+        # triggered the rule, i.e. how "busy" the SOC pipeline has been.
         type   = "metric"
         x      = 0
         y      = 3
@@ -32,6 +38,8 @@ resource "aws_cloudwatch_dashboard" "soc_dashboard" {
         }
       },
       {
+        # Health of the incident-report Lambda: invocation count vs. errors,
+        # so a spike in errors (e.g. Bedrock throttling) is visible fast.
         type   = "metric"
         x      = 12
         y      = 3
@@ -40,7 +48,7 @@ resource "aws_cloudwatch_dashboard" "soc_dashboard" {
 
         properties = {
           metrics = [
-            ["AWS/Lambda", "Invocations", "FunctionName", aws_lambda_function.soc_incident_processor.function_name],
+            ["AWS/Lambda", "Invocations", "FunctionName", aws_lambda_function.soc_incident_report.function_name],
             [".", "Errors", ".", "."]
           ]
           period = 300

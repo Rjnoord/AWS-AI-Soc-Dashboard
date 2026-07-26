@@ -1,3 +1,5 @@
+# Terraform/provider version pin for this lab environment; keeps the
+# committed .terraform.lock.hcl reproducible across machines.
 terraform {
   required_providers {
     aws = {
@@ -7,6 +9,8 @@ terraform {
   }
 }
 
+# Single-region AWS provider; region is parameterized via variable so the
+# lab can be redeployed elsewhere without editing code.
 provider "aws" {
   region = var.aws_region
 }

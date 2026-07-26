@@ -1,3 +1,6 @@
+# Exposed for quick reference when validating which account/region the
+# lab was deployed to (useful since state is local, not remote-tracked).
+
 output "aws_account_id" {
   description = "AWS account ID"
   value       = data.aws_caller_identity.current.account_id
